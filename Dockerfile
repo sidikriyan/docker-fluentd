@@ -9,9 +9,9 @@ COPY .gemrc /root/
 RUN apt-get update -y && apt-get install -yy \
       build-essential \
       zlib1g-dev \
-      libjemalloc1 && \
-    gem install fluentd:1.3.3 && \
-    gem install google-protobuf --pre && \
+      libjemalloc1
+RUN gem install fluentd:1.3.3 && \
+    gem install google-protobuf && \
       fluent-gem install \
       fluent-plugin-ec2-metadata \
       fluent-plugin-hostname \
@@ -23,10 +23,10 @@ RUN apt-get update -y && apt-get install -yy \
       fluent-plugin-kinesis-aggregation \
       fluent-plugin-concat \
       fluent-plugin-parser \
+      fluent-plugin-cloudwatch-logs \
+      fluent-plugin-grok-parser \
+      fluent-plugin-gelf-hs \
       fluent-plugin-statsd-event && \
-      fluent-plugin-grok-parser && \
-      fluent-plugin-gelf-hs && \
-      fluent-plugin-cloudwatch-logs && \
     apt-get purge -y build-essential && \
     apt-get autoremove -y && \
     apt-get clean && \
