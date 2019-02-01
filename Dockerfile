@@ -24,6 +24,8 @@ RUN apt-get update -y && apt-get install -yy \
       fluent-plugin-concat:0.4.0 \
       fluent-plugin-parser:0.6.1 \
       fluent-plugin-statsd-event:0.1.1 && \
+      fluent-plugin-grok-parser: 2.4.0 && \
+      fluent-plugin-gelf-hs:1.0.8 && \
     apt-get purge -y build-essential && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -32,7 +34,7 @@ RUN apt-get update -y && apt-get install -yy \
 RUN mkdir -p /var/log/fluent
 
 # port monitor forward debug
-EXPOSE 24220   24224   24230
+EXPOSE 24220   24224   24230 9292
 
 ENV LD_PRELOAD "/usr/lib/x86_64-linux-gnu/libjemalloc.so.1"
 CMD ["fluentd", "-c", "/etc/fluent/fluentd.conf"]
